@@ -14,7 +14,6 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-
 gem 'json'
-gem 'httparty', '~> 0.13.7'
-gem "octokit", "~> 4.0"
+
+

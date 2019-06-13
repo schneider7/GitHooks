@@ -3,9 +3,7 @@
 module GitHooks
   class PullrequestController < ApplicationController
     
-    client = Octokit::Client.new(:access_token => ENV["GITHUB_TOKEN"])
-
-    def destroy
+      def destroy
       request.body.rewind
       request_payload = JSON.parse(request.body.read)
       
@@ -13,8 +11,8 @@ module GitHooks
       issue_number = request_payload["pull_request"]["number"]
 
       if action_done == "submitted"
-        client.remove_label(GitHooks.base_url, issue_number, 'QA Review')
-        client.remove_label(GitHooks.base_url, issue_number, 'Dev Review')
+        HTTPable.remove_label(issue_number, 'QA Review')
+        HTTPable.remove_label(issue_number, 'Dev Review')
       end
       
       status 200 
