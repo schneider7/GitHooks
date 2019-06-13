@@ -3,7 +3,7 @@
 module GitHooks
   class PullrequestController < ApplicationController
     require_dependency 'octokit'
-    client = Octokit::Client.new(GitHooks.access_token)
+    client = Octokit::Client.new(:access_token => ENV["GITHUB_TOKEN"])
 
     def destroy
       request.body.rewind
