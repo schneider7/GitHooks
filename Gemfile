@@ -17,4 +17,8 @@ gemspec
 
 gem 'json'
 gem 'httparty', '~> 0.13.7'
-gem "octokit", "~> 4.0"
+
+
+group :production do
+  gem "octokit", "~> 4.0"
+end
