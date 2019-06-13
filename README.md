@@ -1,4 +1,4 @@
-# GithubWebhooks
+# GitHooks
 Ruby on Rails engine for receiving GitHub webhooks and automatically updating labels as necessary.
 
 Author: [Michael Schneider](http://www.michaelschneider.me)
@@ -11,7 +11,7 @@ usage; see the docs for Octokit to see the full scope of what you can do with th
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'github_webhooks', git: 'https://github.com/michael-schneider3/github_webhooks'
+gem 'git_hooks', git: 'https://github.com/michael-schneider3/GitHooks'
 ```
 
 And then execute:
@@ -22,7 +22,7 @@ $ bundle
 Add the following `mount` command to your routes file, which is located in /config:
 ```
 Rails.application.routes.draw do
-  mount GithubWebhooks::Engine, at: "/github_webhooks"
+  mount GitHooks::Engine, at: "/git_hooks"
 ```
 
 This creates a `POST` route to handle the webhooks at the specified point.
@@ -33,15 +33,15 @@ Now set up an outgoing webhook request from GitHub:
 
   Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
-  For the URL, point it at https://yourapp.domain/github_webhooks
+  For the URL, point it at https://yourapp.domain/git_hooks
   
   and for trigger options, select "pull request", and "pull request reviews".
 
-  Now create `config/initializers/github_webhooks.rb` ***in your Rails App** and populate the API credentials and set the default path to your repo's, as below.
+  Now create `config/initializers/git_hooks.rb` ***in your Rails App** and populate the API credentials and set the default path to your repo's, as below.
 
   ```
-  GithubWebhooks.access_token = "YOUR_40_DIGIT_ACCESS_TOKEN"
-  GithubWebhooks.base_url = "https://github.com/USER_NAME/REPO_NAME"
+  GitHooks.access_token = "YOUR_40_DIGIT_ACCESS_TOKEN"
+  GitHooks.base_url = "https://github.com/USER_NAME/REPO_NAME"
   ```
 
   Here, you only need a 40-digit OAuth access token specific to your GitHub repo, rather than your username/password for authentication. If you want (and this is worthwhile), you can optionally [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
