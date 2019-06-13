@@ -1,5 +1,4 @@
 
-
 module GitHooks
   class PullrequestController < ApplicationController
     
