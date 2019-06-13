@@ -14,8 +14,7 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'sinatra', require: 'sinatra/base'
-gem 'sinatra-contrib', require: 'sinatra/reloader'
+
 gem 'json'
 gem 'httparty', '~> 0.13.7'
 gem "octokit", "~> 4.0"
