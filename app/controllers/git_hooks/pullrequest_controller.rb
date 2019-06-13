@@ -1,6 +1,8 @@
+
+
 module GitHooks
   class PullrequestController < ApplicationController
-    require 'octokit'
+    require_dependency 'octokit'
     client = Octokit::Client.new(GitHooks.access_token)
 
     def destroy
