@@ -27,4 +27,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 5.2.3"
 
+  spec.add_runtime_dependency 'octokit', '~> 4.0'
+
 end
