@@ -1,3 +1,3 @@
 GitHooks::Engine.routes.draw do
-  resources :pullrequest, only: :destroy, constraints: {format: 'json'}
+  post '/git_hooks/pullrequest', to: 'pullrequest#destroy'
 end

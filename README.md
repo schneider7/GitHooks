@@ -19,7 +19,7 @@ And then execute:
 $ bundle
 ```
 
-Add the following `mount` command to your routes file, which is located in /config:
+Add the following `mount` command to your `routes.rb`, which is located in /config:
 ```
 Rails.application.routes.draw do
   mount GitHooks::Engine, at: "/git_hooks"
@@ -29,7 +29,7 @@ This creates a `POST` route to handle the webhooks at the specified point.
 
 Now set up an outgoing webhook request from GitHub:
 
-  Navigate to the page within the repo for creating new webhooks: `https://github.com/#YOUR_USERNAME/#YOUR_REPO/settings/hooks/`
+  Navigate to the page for setting up webhooks within your repo.
 
   Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
