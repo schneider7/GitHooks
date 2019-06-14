@@ -2,7 +2,7 @@
 module GitHooks
   class PullrequestController < ApplicationController
     
-      def destroy
+      def label
       request.body.rewind
       request_payload = JSON.parse(request.body.read)
       
