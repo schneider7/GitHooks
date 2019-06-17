@@ -1,6 +1,6 @@
 
 module GitHooks
-  class PullrequestController < ApplicationController
+  class PullrequestController < ::GitHooks::ApplicationController
     
       def label
       request.body.rewind

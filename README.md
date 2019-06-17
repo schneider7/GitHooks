@@ -1,5 +1,5 @@
 # GitHooks
-Ruby on Rails engine for receiving GitHub webhooks and automatically updating labels as necessary.
+Ruby on Rails engine that providese an endpoint for receiving GitHub webhooks and automatically updating labels as necessary.
 
 Author: [Michael Schneider](http://www.michaelschneider.me)
 
