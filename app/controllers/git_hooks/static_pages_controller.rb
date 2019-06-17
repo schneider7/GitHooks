@@ -1,4 +1,4 @@
-class StaticPagesController < ApplicationController
+class StaticPagesController < ::GitHooks::ApplicationController
   def index
   end
 end
