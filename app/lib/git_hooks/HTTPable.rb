@@ -1,5 +1,6 @@
 require 'net/http'
 require 'uri'
+require 'json'
 
 module GitHooks
   module HTTPable
@@ -30,7 +31,7 @@ module GitHooks
       #   http.request(request)
 
       github_response = JSON.parse(http.request(request).body)
-      
+
       File.open('/mnt/c/ruby/GitHooks_logs.txt') do |f|
         f.write(github_response) 
       end
