@@ -29,12 +29,14 @@ module GitHooks
 
       response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
         http.request(request)
+      end
 
       github_response = JSON.parse(http.request(request).body)
 
       File.open('/mnt/c/ruby/GitHooks_logs.txt') do |f|
         f.write(github_response) 
       end
+      
     end
   end
 end
