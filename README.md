@@ -16,16 +16,20 @@ gem 'git_hooks', git: 'https://github.com/michael-schneider3/GitHooks'
 
 And then execute:
 ```bash
-$ bundle
+$ bundle update
 ```
 
-Add the following `mount` command to your `routes.rb`, which is located in /config:
-```
-Rails.application.routes.draw do
+(You may need to execute `rm Gemfile.lock` first) 
+
+
+Add the following `mount` command to `routes.rb`, in your Rails app:
+
+```ruby
+# Rails.application.routes.draw do
   mount GitHooks::Engine, at: "/git_hooks"
 ```
 
-This creates a `POST` route to handle the webhooks at the specified point.
+This creates a `POST` route to handle the webhooks at the specified point, e.g. `/git_hooks/pullrequests`.
 
 Now set up an outgoing webhook request from GitHub:
 
@@ -33,7 +37,7 @@ Now set up an outgoing webhook request from GitHub:
 
   Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
-  For the URL, point it at https://yourapp.domain/git_hooks
+  For the URL, point it at https://yourapp.domain/git_hooks/pullrequests
   
   and for trigger options, select "pull request", and "pull request reviews".
 
