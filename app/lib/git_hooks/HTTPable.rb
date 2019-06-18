@@ -15,7 +15,7 @@ module GitHooks
       http_request('Delete', options)
     end
 
-    def http_request(method, options={})
+    def self.http_request(method, options={})
       uri = URI.parse(options[:defaults][:uri])
       request = ::Net::HTTP.const_get(method).new(uri)
       request["Authorization"] = "token #{options[:defaults][:token]}"
