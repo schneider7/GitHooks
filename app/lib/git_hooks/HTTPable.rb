@@ -27,8 +27,8 @@ module GitHooks
         use_ssl: uri.scheme == "https",
       }
 
-      # response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-      #   http.request(request)
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
 
       github_response = JSON.parse(http.request(request).body)
 
