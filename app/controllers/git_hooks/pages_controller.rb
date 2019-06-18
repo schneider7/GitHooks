@@ -1,7 +1,7 @@
 module GitHooks
   class PagesController < ::GitHooks::ApplicationController
     def help
-      render 'help'
+      layout 'help'
     end
   end
 end
