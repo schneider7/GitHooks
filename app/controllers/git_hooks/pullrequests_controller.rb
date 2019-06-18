@@ -13,7 +13,7 @@ module GitHooks
         HTTPable.remove_label(issue_number, 'Dev Review')
       end
       
-      status 200 
+      head :ok 
     end
   end
 end
