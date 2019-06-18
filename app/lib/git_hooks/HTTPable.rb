@@ -1,4 +1,5 @@
 require 'net/http'
+require 'uri'
 
 module GitHooks
   module HTTPable
