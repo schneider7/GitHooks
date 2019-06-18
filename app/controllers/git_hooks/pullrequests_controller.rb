@@ -1,7 +1,7 @@
 module GitHooks
   class PullrequestsController < ::GitHooks::ApplicationController
     
-      def label
+    def label
       request.body.rewind
       request_payload = JSON.parse(request.body.read)
       

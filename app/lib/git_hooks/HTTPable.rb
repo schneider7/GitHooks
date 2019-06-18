@@ -11,7 +11,7 @@ module GitHooks
     end
     
     def self.remove_label(issue_number, label_name)
-      options = self.githooks_defaults("#{issue_number}/labels/#{label_name}")
+      options = githooks_defaults("#{issue_number}/labels/#{label_name}")
       http_request('Delete', options)
     end
 
