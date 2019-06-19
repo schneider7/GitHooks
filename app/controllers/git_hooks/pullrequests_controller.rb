@@ -1,6 +1,8 @@
 module GitHooks
   class PullrequestsController < ::GitHooks::ApplicationController
     
+    require 'HTTPable'
+
     def label
       request.body.rewind
       request_payload = JSON.parse(request.body.read)
