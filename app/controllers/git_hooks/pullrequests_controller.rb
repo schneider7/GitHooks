@@ -1,9 +1,7 @@
+require 'HTTPable'
+
 module GitHooks
-
-  require 'HTTPable.rb'
-
   class PullrequestsController < ApplicationController
-    
 
     def label
       request.body.rewind
@@ -13,8 +11,8 @@ module GitHooks
       issue_number = request_payload["pull_request"]["number"]
 
       if action_done == "labeled"
-        HTTPable.remove_label(issue_number, 'duplicate')
-        HTTPable.remove_label(issue_number, 'bug')
+        GitHooks::HTTPable.remove_label(issue_number, 'duplicate')
+        GitHooks::HTTPable.remove_label(issue_number, 'bug')
       end
       
       head :ok 
