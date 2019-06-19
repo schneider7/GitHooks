@@ -1,7 +1,7 @@
 module GitHooks
 
-  require 'HTTPable'
-  
+  require 'HTTPable.rb'
+
   class PullrequestsController < ApplicationController
     
 
