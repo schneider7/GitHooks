@@ -9,8 +9,8 @@ module GitHooks
       issue_number = request_payload["pull_request"]["number"]
 
       if action_done == "labeled"
-        GitHooks::HTTPable.remove_label(issue_number, 'duplicate')
-        GitHooks::HTTPable.remove_label(issue_number, 'bug')
+        GitHooks.remove_label(issue_number, 'duplicate')
+        GitHooks.HTTPable.remove_label(issue_number, 'bug')
       end
       
       head :ok 
