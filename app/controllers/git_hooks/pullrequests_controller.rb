@@ -1,5 +1,5 @@
 module GitHooks
-  class PullrequestsController < ::GitHooks::ApplicationController
+  class PullrequestsController < ApplicationController
   
     def label
       request.body.rewind
@@ -9,8 +9,8 @@ module GitHooks
       issue_number = request_payload["pull_request"]["number"]
 
       if action_done == "labeled"
-        GitHooks.remove_label(issue_number, 'duplicate')
-        GitHooks.HTTPable.remove_label(issue_number, 'bug')
+        HTTPable.remove_label(issue_number, 'duplicate')
+        HTTPable.remove_label(issue_number, 'bug')
       end
       
       head :ok 
