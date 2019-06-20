@@ -50,5 +50,28 @@ Now set up an outgoing webhook request from GitHub:
 
   Here, you only need a 40-digit OAuth access token specific to your GitHub repo, rather than your username/password for authentication. If you want (and this is worthwhile), you can optionally [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
 
+  If you'll be committing to GitHub, you'll need to store your `token` in a `.yml` file, as follows:
+    Under `/config`, create a file named `env.yml` and populate it like this:
+
+    ```ruby 
+    production:
+      GITHUB_TOKEN: "your_40-digit_token"
+
+    development:
+      GITHUB_TOKEN: "your_40-digit_token"
+    ```
+    This will allow you to access the 40-digit string with ENV["GITHUB_TOKEN"], which is necessary to "hide" the token from GitHub.
+
+    Now, add the following line to `.gitignore`:
+      ```ruby
+      /config/env.yml
+      ```
+    You're not allowed to commit a change to GitHub if it includes a valid OAuth token; GitHub will automatically revoke the token if they see this happen. This step prevents GitHub from pushing the file that includes the token, avoiding this issue.
+
+    If you're deploying to Heroku, you can create a config variable called GITHUB_TOKEN in the settings of your app.
+
+  Note: If the logs show `Authentication error`s or `401: Bad credentials` errors, [your environment variables might need to be refreshed](https://stackoverflow.com/questions/29289833/environment-variables-cached-in-rails-config). This happened to me several times during development.
+
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

@@ -18,7 +18,7 @@ module GitHooks
     def self.http_request(method, options={})
       encoded_uri = URI.encode(options[:defaults][:uri])
       uri = URI.parse(encoded_uri)
-      request = ::Net::HTTP.const_get(method).new(uri)
+      request = Net::HTTP::const_get(method).new(uri)
       request["Authorization"] = "token #{options[:defaults][:token]}"
 
       req_options = {
