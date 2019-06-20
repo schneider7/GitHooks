@@ -9,7 +9,7 @@ module GitHooks
       action_done = request_payload["action"]
       number      = request_payload["pull_request"]["number"]
 
-      if action_done == "submitted"
+      if action_done == "labeled"
         Http.remove_label(number,  'QA Review')
         Http.remove_label(number, 'Dev Review')
       end
