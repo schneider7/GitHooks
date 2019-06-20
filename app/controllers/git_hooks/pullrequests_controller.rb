@@ -1,4 +1,3 @@
-require 'HTTPable'
 
 module GitHooks
   class PullrequestsController < ApplicationController
@@ -8,11 +7,11 @@ module GitHooks
       request_payload = JSON.parse(request.body.read)
       
       action_done = request_payload["action"]
-      issue_number = request_payload["pull_request"]["number"]
+      number = request_payload["pull_request"]["number"]
 
       if action_done == "labeled"
-        GitHooks::HTTPable.remove_label(issue_number, 'duplicate')
-        GitHooks::HTTPable.remove_label(issue_number, 'bug')
+        Http.remove_label(number, 'duplicate')
+        Http.remove_label(number, 'bug')
       end
       
       head :ok 
