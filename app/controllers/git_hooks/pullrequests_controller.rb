@@ -10,8 +10,7 @@ module GitHooks
       number = request_payload["pull_request"]["number"]
 
       if action_done == "labeled"
-        res = Http.remove_label(number, 'duplicate')
-        Rails.logger.debug JSON.parse(res.body).inspect
+        Http.remove_label(number, 'QA Review')
         Http.remove_label(number, 'bug')
       end
       

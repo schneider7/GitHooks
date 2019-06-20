@@ -21,11 +21,9 @@ module GitHooks
       request = Net::HTTP::const_get(method).new(uri)
       request["Authorization"] = "token #{options[:defaults][:token]}"
 
-      req_options = {
-        use_ssl: uri.scheme == "https",
-      }
+      # req_options = { use_ssl: uri.scheme == "https" }
 
-      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == "https" }) do |http|
         http.request(request)
       end
     end
