@@ -73,5 +73,13 @@ Now set up an outgoing webhook request from GitHub:
   Note: If the logs show `Authentication error`s or `401: Bad credentials` errors, [your environment variables might need to be refreshed](https://stackoverflow.com/questions/29289833/environment-variables-cached-in-rails-config). This happened to me several times during development.
 
 
+## Notes
+
+If you run into issues getting the app to run in production environment, you may have to precompile the assets with one of the following commands. Try them in order.
+1) `rails db:migrate assets:precompile`
+2) `RAILS_ENV=production rake db:migrate assets:precompile`
+
+Someone more intelligent than me could probably explain why precompiling the assets sometimes fails.
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

@@ -11,7 +11,7 @@ module GitHooks
 
       if action_done == "labeled"
         Http.remove_label(number, 'QA Review')
-        Http.remove_label(number, 'bug')
+        Http.remove_label(number, 'Dev Review')
       end
       
       head :ok 
