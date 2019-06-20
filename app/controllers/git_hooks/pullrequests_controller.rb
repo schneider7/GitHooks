@@ -10,8 +10,9 @@ module GitHooks
       number = request_payload["pull_request"]["number"]
 
       if action_done == "labeled"
-        Http.remove_label(number, 'QA Review')
-        Http.remove_label(number, 'Dev Review')
+        res = Http.remove_label(number, 'QA Review')
+        Rails.logger.debug JSON.parse(res.body).inspect
+        Http.remove_label(number, 'bug')
       end
       
       head :ok 
