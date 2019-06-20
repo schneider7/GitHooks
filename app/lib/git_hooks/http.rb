@@ -10,8 +10,8 @@ module GitHooks
     end
     
     def self.remove_label(issue_number, label_name)
-      encoded_label_name = URI.encode(label_name)
-      options = githooks_defaults("/#{issue_number}/labels/#{encoded_label_name}")
+      # encoded_label_name = URI.encode(label_name)
+      options = githooks_defaults("/#{issue_number}/labels/#{label_name}")
       http_request('Delete', options)
     end
 
