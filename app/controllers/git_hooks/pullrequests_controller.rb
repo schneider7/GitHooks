@@ -24,6 +24,12 @@ module GitHooks
         Http.remove_label(repo_modified, number, "Dev Review")
       end
       
+
+      # Test action
+      if action_done == "labeled" && active_repos.include?(repo_modified)
+        Http.add_label(repo_modified, number, ["WOOHOO"])
+      end
+
       head :ok 
     end
   end
