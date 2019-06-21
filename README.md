@@ -45,12 +45,14 @@ Now set up an outgoing webhook request from GitHub:
   
   Here, you only need a 40-digit OAuth access token specific to your GitHub repo, rather than your username/password for authentication. You can optionally [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
   
-  Give it repo: scope.
+  Give it repo scope.
   
   ![Screencap of options](/pat-scope.png)
 
   If you'll be committing to GitHub, you'll want to store your `token` in a `.yml` file, as follows:
     Under `/config`, create a file named `env.yml` and populate it with info specific to your repo:
+
+
 
   ```ruby 
     production:
