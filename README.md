@@ -73,7 +73,7 @@ Now set up an outgoing webhook request from GitHub:
 
   If you're deploying to Heroku, you can create a config variable called GITHUB_TOKEN in the settings of your app, and a config variable called BASE_URL with the information from above.
 
-  More generally, you need to include the environment variables at the server level, however your deploy your app. If you're using this engine, odds are you will know what this means.
+  More generally, you need to include the environment variables at the server level, however your deploy your app. If you're using this engine, odds are you will know what this means. I'm just an intern.
 
 
 If you've mounted the engine properly, GitHooks will listen to GitHub webhooks whenever your Rails app is active, at the URL you specify.
