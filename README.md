@@ -34,11 +34,11 @@ This creates a `POST` route to handle the webhooks at the specified point, e.g. 
 
 Now set up an outgoing webhook request from GitHub:
 
-  *Navigate to the page for setting up webhooks within your repo: `(Repo) Settings > Webhooks > Add Webhook` 
+  -Navigate to the page for setting up webhooks within your repo: `(Repo) Settings > Webhooks > Add Webhook` 
 
-  *Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
+  -Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
-  *Following my example, for the URL, point it at https://yourapp.domain/git_hooks/pullrequests
+  -Following my example, for the URL, point it at https://yourapp.domain/git_hooks/pullrequests
   
   and for trigger options, select "pull request", and "pull request reviews".
 
