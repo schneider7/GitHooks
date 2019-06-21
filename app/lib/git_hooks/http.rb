@@ -2,10 +2,9 @@ require 'net/http'
 
 module GitHooks
   module Http
-    @base_uri = "https://api.github.com/repos/michael-schneider3/sample_app/issues"
-
+    
     def self.githooks_defaults(path)
-      uri = @base_uri + path
+      uri = ENV["BASE_URI"] + path
       {defaults: {uri: uri, token: ENV["GITHUB_TOKEN"]}}
     end
     
@@ -18,7 +17,7 @@ module GitHooks
       options = githooks_defaults("/#{issue_number}/labels")
       http_request('Post', options.merge(params: { 'labels': labels }))
     end
-    
+
     def self.http_request(method, options={})
       encoded_uri = URI.encode(options[:defaults][:uri])
       uri = URI.parse(encoded_uri)
