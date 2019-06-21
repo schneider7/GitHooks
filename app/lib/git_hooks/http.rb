@@ -17,7 +17,8 @@ module GitHooks
     def self.add_label(issue_number, labels) #takes an array as an argument
       options = githooks_defaults("/#{issue_number}/labels")
       http_request('Post', options.merge(params: { 'labels': labels }))
-
+    end
+    
     def self.http_request(method, options={})
       encoded_uri = URI.encode(options[:defaults][:uri])
       uri = URI.parse(encoded_uri)
