@@ -40,7 +40,7 @@ Now set up an outgoing webhook request from GitHub:
   
   -Following my example, for the URL, point it at https://yourapp.domain/git_hooks/pullrequests
   
-  and for trigger options, select "pull request", and "pull request reviews".
+  and for trigger options, select "issues", "pull request", and "pull request reviews".
 
   
   Here, you only need a 40-digit OAuth access token specific to your GitHub repo, rather than your username/password for authentication. You can optionally [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
