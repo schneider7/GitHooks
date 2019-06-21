@@ -10,7 +10,10 @@ module GitHooks
       repo_modified    = request_payload["pull_request"]["head"]["repo"]["name"]
       action_done      = request_payload["action"]
       number           = request_payload["pull_request"]["number"]
-      submitted_status = request_payload["review"]["state"]
+      
+      if action_done == "submitted"
+        submitted_status = request_payload["review"]["state"]
+      end
 
       # If review request is approved on an active repo
       if action_done == "submitted" && submitted_status == "approved" && GitHooks.active_repos.include?(repo_modified)
