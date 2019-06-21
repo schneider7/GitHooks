@@ -13,7 +13,7 @@ module GitHooks
       submitted_status = request_payload["review"]["state"]
 
       # If review request is approved on an active repo
-      if action_done == "submitted" && submitted_status == "approved" && active_repos.include?(repo_modified)
+      if action_done == "submitted" && submitted_status == "approved" && GitHooks.active_repos.include?(repo_modified)
         Http.remove_label(repo_modified, number, "Dev Review")
         Http.add_label(repo_modified, number, ["Dev Approved"]) 
         Http.add_label(repo_modified, number, ["QA Review"])        

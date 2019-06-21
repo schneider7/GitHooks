@@ -3,9 +3,6 @@ require 'net/http'
 module GitHooks
   module Http
     
-    @base_uri = "https://api.github.com/repos/michael-schneider3/sample_app/issues"
-    @base_uri = "https://api.github.com/repos/michael-schneider3"
-
     def self.githooks_defaults(path)
       uri = ENV["BASE_URI"] + path
       {defaults: {uri: uri, token: ENV["GITHUB_TOKEN"]}}
