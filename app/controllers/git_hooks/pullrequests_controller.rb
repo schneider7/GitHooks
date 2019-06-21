@@ -16,14 +16,14 @@ module GitHooks
       end
 
       # If review request is approved on an active repo
-      if action_done == "submitted" && submitted_status == "approved" && GitHooks.active_repos.include?(repo_modified)
+      if action_done == "submitted" && submitted_status == "approved"
         Http.remove_label(repo_modified, number, "Dev Review")
         Http.add_label(repo_modified, number, ["Dev Approved"]) 
         Http.add_label(repo_modified, number, ["QA Review"])        
       end
       
       # If review request is 'declined'
-      if action_done == "submitted" && submitted_status == "changes_requested" && active_repos.include?(repo_modified)
+      if action_done == "submitted" && submitted_status == "changes_requested"
         Http.remove_label(repo_modified, number, "Dev Review")
       end
       
