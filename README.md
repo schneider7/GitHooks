@@ -38,53 +38,54 @@ Now set up an outgoing webhook request from GitHub:
 
   - Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
-  - Following my example, for the URL, point it at https://yourapp.domain/git_hooks/pullrequests.
+  - Following my example, for the URL, point it at https://yourapp.domain/git_hooks/pullrequests
   
-  and for trigger options, select "issues", "pull request", and "pull request reviews".
+  - For trigger options, select "issues", "pull request", and "pull request reviews".
 
   
-  Here, you only need a 40-digit OAuth access token specific to your GitHub repo, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
+  For authorization, you only need a 40-digit OAuth access token specific to your GitHub repo, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
   
   Give it repo scope.
   
   ![Screencap of options](/pat-scope.png)
 
-  If this is for an organization, you will probably want to create a ["machine account"](https://developer.github.com/v3/guides/managing-deploy-keys/) (i.e. a bot) with a name like "<Company Name> Bot" that will have read/write/admin powers and then use it (and its access token) to interact with the API. This has the dual benefit of keeping the action going indefinitely (linking it to a specific person could cause issues if the person ever leaves the company) and also of clearly indicating in the GitHub user interface that the action was performed automatically by a bot.
+  If you're using this for an organization, and you most likely are, you will probably want to create a ["machine account"](https://developer.github.com/v3/guides/managing-deploy-keys/) (i.e. a bot) with a name like "Company_Name Bot" that will have read/write/admin powers and then use it (and its access token) to interact with the API. This has the dual benefit of keeping the action going indefinitely (linking it to a specific person could cause issues if the person ever leaves the company) and also of clearly indicating in the GitHub user interface that the action was performed automatically by a bot.
 
 
 ## Storing the Token: .yml
   If you'll be committing anything to GitHub, you'll want to store your `token` in a `.yml` file, as follows. If you're planning on using ENV variables, skip this section.
-    Under `/config`, create a file named `env.yml` and populate it with info specific to your repo:
+    
+  Under `/config`, create a file named `env.yml` and populate it with info specific to your repo:
 
 
 
   ```ruby 
     production:
       GITHUB_TOKEN: "your_40-digit_token"
-      BASE_URL: "https://api.github.com/repos/FILL_IN_USER_NAME/FILL_IN_REPO_NAME/issues"
+      BASE_URL: "https://api.github.com/repos/FILL_IN_USER_NAME"
 
     development:
       GITHUB_TOKEN: "your_40-digit_token"
-      BASE_URL: "https://api.github.com/repos/FILL_IN_USER_NAME/FILL_IN_REPO_NAME/issues"
+      BASE_URL: "https://api.github.com/repos/FILL_IN_USER_NAME"
   ```
-  This will allow you to access the 40-digit string with ENV["GITHUB_TOKEN"], which is a necessary step to "hide" the token from GitHub.
+  This will allow you to access the 40-digit string with ENV["GITHUB_TOKEN"]; putting this in an environment variable as opposed to explicitly declaring it, is a (semi)necessary step to "hide" the token from GitHub.
 
   Now, add the following line to `.gitignore`:
   ```ruby
       /config/env.yml
   ```
-  As you may know, you're not allowed to commit a change to GitHub if it includes a valid OAuth token; GitHub will automatically revoke the token if they see this happen. This step prevents GitHub from pushing the file that includes the token, avoiding this issue.
+  As you may know, you're not allowed to commit a change to GitHub if it includes a valid OAuth token; GitHub will automatically revoke that token if they see this happen, and you'll need to get a new one. This step prevents GitHub from pushing the file that includes the token, avoiding this issue.
 
 
 ## Storing the Token: Config Variables
-  If you're deploying to Heroku, you can create a config variable called GITHUB_TOKEN in the settings of your app, and a config variable called BASE_URL with the information from above.
+  If you're deploying to Heroku, you can simply create a config variable called GITHUB_TOKEN in the settings of your app, and a config variable called BASE_URL with the same information from above.
 
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
 
 
 ## Configuration
 
-In addition to using environment/config variables for the token and base uri, you'll also need to do some basic configuration of the app to suit your preferences. This part is really simple. To begin, you'll need to add a file called `git_hooks.rb` into your Rails App, in `/config/initializers`. Copy the following code, and populate it with the relevant information for your projects:
+In addition to using environment/config variables for the token and base uri, you'll also need to do some basic configuration of the app to suit your preferences. This part is really simple. To begin, you'll need to add a file called `git_hooks.rb` into your Rails App, in `/config/initializers`. Copy the following line of code, and populate it with the relevant information for your projects:
 
 ```ruby
 GitHooks.active_repos = ["Repo_1_Name", "Repo_2_Name"]
@@ -92,7 +93,7 @@ GitHooks.active_repos = ["Repo_1_Name", "Repo_2_Name"]
 # Obviously, it is acceptable if the array contains only one element.
 ```
 
-If you have two repos with webhooks pointed at the same location (`.../git_hooks/pullrequests`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active" ** (as defined in the above .rb file).
+If you have two repos with webhooks pointed at the same location (`.../git_hooks/pullrequests`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
 
 If you've mounted the engine properly, GitHooks will listen to GitHub webhooks whenever your Rails app is active, at the URL you specify.
 
