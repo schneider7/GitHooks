@@ -58,8 +58,6 @@ Now set up an outgoing webhook request from GitHub:
     
   Under `/config`, create a file named `env.yml` and populate it with info specific to your repo:
 
-
-
   ```ruby 
     production:
       GITHUB_TOKEN: "your_40-digit_token"
@@ -82,6 +80,9 @@ Now set up an outgoing webhook request from GitHub:
   If you're deploying to Heroku, you can simply create a config variable called `GITHUB_TOKEN` in the settings of your app, and a config variable called `BASE_URI` with the same information from above.
 
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
+
+  ![Defining BASE_URI](/BASE_URI.png)
+  ![Defining GITHUB_TOKEN](/GITHUB_TOKEN.png)
 
   No matter how you define your ENV variables, the point is that the app has calls to `ENV["GITHUB_TOKEN"]` and `ENV["BASE_URI"]` that need to be defined.
 
