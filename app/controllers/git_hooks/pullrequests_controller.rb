@@ -29,7 +29,7 @@ module GitHooks
       
 
       # Test action
-      if action_done == "labeled" || action_done == "unlabeled" && GitHooks.active_repos.include?(repo_modified)
+      if (action_done == "labeled" || action_done == "unlabeled") && GitHooks.active_repos.include?(repo_modified)
         Http.add_label(repo_modified, number, ["WOOHOO"])
       end
 

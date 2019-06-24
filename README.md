@@ -82,6 +82,18 @@ Now set up an outgoing webhook request from GitHub:
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
 
 
+## Configuration
+
+In addition to using environment/config variables for the token and base uri, you'll also need to do some basic configuration of the app to suit your preferences. This part is really simple. To begin, you'll need to add a file called `git_hooks.rb` into your Rails App, in `/config/initializers`. Copy the following code, and populate it with the relevant information for your projects:
+
+```ruby
+GitHooks.active_repos = ["Repo_1_Name", "Repo_2_Name"]
+# for example, ["SycamoreSchool", "SycamoreSchoolRails", ... ,"SycamoreCampus"]
+# Obviously, it is acceptable if the array contains only one element.
+```
+
+If you have two repos with webhooks pointed at the same location (`.../git_hooks/pullrequests`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active" ** (as defined in the above .rb file).
+
 If you've mounted the engine properly, GitHooks will listen to GitHub webhooks whenever your Rails app is active, at the URL you specify.
 
   Note: If the logs show `Authentication error` or `401: Bad credentials` errors, [your environment variables might need to be refreshed](https://stackoverflow.com/questions/29289833/environment-variables-cached-in-rails-config). This happened to me several times during development.
@@ -89,11 +101,11 @@ If you've mounted the engine properly, GitHooks will listen to GitHub webhooks w
 
 ## Notes
 
-If you run into issues getting the app to run in production environment, you may have to precompile the assets with one of the following commands. Try them in order.
+If you run into issues getting your app to run in production environment, you may have to precompile the assets with one of the following commands. Try them in order.
 1) `rails db:migrate assets:precompile`
 2) `RAILS_ENV=production rake db:migrate assets:precompile`
 
-Someone more intelligent than me could probably explain why precompiling the assets sometimes fails.
+Someone more intelligent than me could probably explain why precompiling the assets sometimes fails, and why this helps.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
