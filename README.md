@@ -6,7 +6,7 @@ Author: [Michael Schneider](http://www.michaelschneider.me)
 ## Usage
 This RoR engine is specifically set up to remove `Dev Review` label and add `Dev Approved` on a GitHub pull request, once review has actually been completed. If changes are requested, `Dev Review` is removed. 
 
-Motivation was that it can be easy to forget to remove these tags, and this is a simple fix to ensure that the reviewer doesn't have to remember to do that. This is only one specific usage; see [this link](https://developer.github.com/v3/activity/events/types) for more details on what you can do with the GitHub API.
+Motivation was that it can be easy to forget to remove these tags, and this is a simple fix to ensure that the reviewer doesn't have to remember to do that. This is only one specific usage; see [this link](https://developer.github.com/v3/activity/events/types) for more details on what you can do with the GitHub API, and how you could adapt this engine if you wanted to.
 
 ## Installation
 Add this line to your application's Gemfile:
