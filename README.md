@@ -12,7 +12,7 @@ Motivation was that it can be easy to forget to remove these tags, and this is a
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'git_hooks', git: 'https://github.com/michael-schneider3/GitHooks'
+gem 'git_hooks', git: 'https://github.com/schneider7/GitHooks'
 ```
 
 And then execute:
@@ -30,7 +30,8 @@ Add the following `mount` line to `routes.rb`, in your Rails app:
   mount GitHooks::Engine, at: "/git_hooks"
 ```
 
-This creates a `POST` route to handle the webhooks at the specified point, e.g. `/git_hooks/pullrequests`.
+Via the engine, this creates a `POST` route to handle the webhooks at `/git_hooks/pullrequests`.
+(As an illustration that might help -- if you were to mount the engine at `/`, the webhooks would be handled at `/pullrequests` instead.) 
 
 Now set up an outgoing webhook request from GitHub:
 
@@ -43,7 +44,7 @@ Now set up an outgoing webhook request from GitHub:
   - For trigger options, select "issues", "pull request", and "pull request reviews".
 
   
-  For authorization, you only need a 40-digit OAuth access token specific to your GitHub repo, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
+  For authorization, you only need a 40-digit OAuth access token specific to your GitHub account, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
   
   Give it repo scope.
   
