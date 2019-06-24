@@ -39,6 +39,7 @@ module GitHooks
       response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == "https" }) do |http|
         http.request(request)
       end
+      JSON.parse response.body
     end
 
   end
