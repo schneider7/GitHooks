@@ -79,12 +79,11 @@ Now set up an outgoing webhook request from GitHub:
 
 
 ## Storing the Token: Config Variables, the better way
-  If you're deploying to Heroku, you can simply create a config variable called GITHUB_TOKEN in the settings of your app, and a config variable called BASE_URI with the same information from above.
+  If you're deploying to Heroku, you can simply create a config variable called `GITHUB_TOKEN` in the settings of your app, and a config variable called `BASE_URI` with the same information from above.
 
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
 
   No matter how you define your ENV variables, the point is that the app has calls to ENV["GITHUB_TOKEN"] and ENV["BASE_URI"] that need to be defined.
-
 
 ## Configuration
 
@@ -99,9 +98,6 @@ GitHooks.active_repos = ["Repo_1_Name", "Repo_2_Name"]
 If you have two repos with webhooks pointed at the same location (`.../git_hooks`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
 
 If you've mounted the engine properly, GitHooks will listen to GitHub webhooks whenever your Rails app is active, at the URL you specify.
-
-  Note: If the logs show `Authentication error` or `401: Bad credentials` errors, [your environment variables might need to be refreshed](https://stackoverflow.com/questions/29289833/environment-variables-cached-in-rails-config). This happened to me several times during development.
-
 
 ## Notes
 
