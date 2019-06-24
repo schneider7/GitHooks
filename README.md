@@ -30,8 +30,7 @@ Add the following `mount` line to `routes.rb`, in your Rails app:
   mount GitHooks::Engine, at: "/git_hooks"
 ```
 
-Via the engine, this creates a `POST` route to handle the webhooks at `/git_hooks/pullrequests`.
-(As an illustration that might help -- if you were to mount the engine at `/`, the webhooks would be handled at `/pullrequests` instead.) 
+Via the engine, this creates a `POST` route to handle the webhooks received at `/git_hooks`.
 
 Now set up an outgoing webhook request from GitHub:
 
@@ -39,12 +38,11 @@ Now set up an outgoing webhook request from GitHub:
 
   - Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
-  - Following my example, for the URL, point it at https://yourapp.domain/git_hooks/pullrequests
+  - Following my example, for the URL, point it at https://yourapp.domain/git_hooks
   
-  - For trigger options, select "issues", "pull request", and "pull request reviews".
-
+  - For trigger options, select only "pull requests" and "pull request reviews". 
   
-  For authorization, you only need a 40-digit OAuth access token specific to your GitHub account, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). 
+  For authorization, you only need a 40-digit OAuth access token specific to your GitHub account, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
   
   Give it repo scope.
   
@@ -71,17 +69,19 @@ Now set up an outgoing webhook request from GitHub:
   ```
   This will allow you to access the 40-digit string with ENV["GITHUB_TOKEN"]; putting this in an environment variable as opposed to explicitly declaring it, is a (semi)necessary step to "hide" the token from GitHub.
 
-  Now, add the following line to `.gitignore`:
+  Then add the following line to `.gitignore`:
   ```ruby
       /config/env.yml
   ```
   As you may know, you're not allowed to commit a change to GitHub if it includes a valid OAuth token; GitHub will automatically revoke that token if they see this happen, and you'll need to get a new one. This step prevents GitHub from pushing the file that includes the token, avoiding this issue.
 
 
-## Storing the Token: Config Variables
+## Storing the Token: Config Variables, the better way
   If you're deploying to Heroku, you can simply create a config variable called GITHUB_TOKEN in the settings of your app, and a config variable called BASE_URL with the same information from above.
 
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
+
+  No matter how you define your ENV variables, the point is that the app has calls to ENV["GITHUB_TOKEN"] and ENV["BASE_URI"] that need to be defined.
 
 
 ## Configuration
