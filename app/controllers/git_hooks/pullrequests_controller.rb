@@ -8,7 +8,8 @@ module GitHooks
       
       # Get values from the parsed JSON that we'll need as arguments later on
       repo_modified    = request_payload["pull_request"]["head"]["repo"]["name"]
-      number = request_payload["pull_request"]["number"]
+      action_done      = request_payload["action"]
+      number           = request_payload["pull_request"]["number"]
 
       if GitHooks.active_repos.include?(repo_modified)
       
