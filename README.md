@@ -48,7 +48,7 @@ Now set up an outgoing webhook request from GitHub:
 ## Authorization
   For authorization, you only need a 40-digit OAuth access token specific to your GitHub account, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
 
-  Give it repo scope.
+  **Give it repo scope.**
   
   ![Screencap of options](/pat-scope.png)
 
@@ -110,6 +110,8 @@ If you run into issues getting your app to run in production environment, you ma
 2) `RAILS_ENV=production rake db:migrate assets:precompile`
 
 Someone more intelligent than me could probably explain why precompiling the assets sometimes fails, and why this helps.
+
+If the logs show `Authentication error` or `401: Bad credentials` errors, [your environment variables might need to be refreshed](https://stackoverflow.com/questions/29289833/environment-variables-cached-in-rails-config). This happened to me several times during development.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
