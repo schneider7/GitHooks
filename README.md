@@ -61,11 +61,11 @@ Now set up an outgoing webhook request from GitHub:
   ```ruby 
     production:
       GITHUB_TOKEN: "your_40-digit_token"
-      BASE_URL: "https://api.github.com/repos/FILL_IN_USER_NAME"
+      BASE_URI: "https://api.github.com/repos/FILL_IN_USER_NAME"
 
     development:
       GITHUB_TOKEN: "your_40-digit_token"
-      BASE_URL: "https://api.github.com/repos/FILL_IN_USER_NAME"
+      BASE_URI: "https://api.github.com/repos/FILL_IN_USER_NAME"
   ```
   This will allow you to access the 40-digit string with ENV["GITHUB_TOKEN"]; putting this in an environment variable as opposed to explicitly declaring it, is a (semi)necessary step to "hide" the token from GitHub.
 
@@ -77,7 +77,7 @@ Now set up an outgoing webhook request from GitHub:
 
 
 ## Storing the Token: Config Variables, the better way
-  If you're deploying to Heroku, you can simply create a config variable called GITHUB_TOKEN in the settings of your app, and a config variable called BASE_URL with the same information from above.
+  If you're deploying to Heroku, you can simply create a config variable called GITHUB_TOKEN in the settings of your app, and a config variable called BASE_URI with the same information from above.
 
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
 
@@ -94,7 +94,7 @@ GitHooks.active_repos = ["Repo_1_Name", "Repo_2_Name"]
 # Obviously, it is acceptable if the array contains only one element.
 ```
 
-If you have two repos with webhooks pointed at the same location (`.../git_hooks/pullrequests`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
+If you have two repos with webhooks pointed at the same location (`.../git_hooks`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
 
 If you've mounted the engine properly, GitHooks will listen to GitHub webhooks whenever your Rails app is active, at the URL you specify.
 
