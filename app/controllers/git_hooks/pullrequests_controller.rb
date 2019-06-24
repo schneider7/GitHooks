@@ -44,7 +44,7 @@ module GitHooks
         end
       
         # Test action
-        if (action_done == "labeled" || action_done == "unlabeled")
+        if action_done == "labeled" || action_done == "unlabeled"
           labels_present = Http.get_labels(repo_modified, number)
           Http.add_comment(repo_modified, number, labels_present)
           Http.add_label(repo_modified, number, ["WOOHOO"])
