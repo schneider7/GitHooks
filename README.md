@@ -83,7 +83,7 @@ Now set up an outgoing webhook request from GitHub:
 
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
 
-  No matter how you define your ENV variables, the point is that the app has calls to ENV["GITHUB_TOKEN"] and ENV["BASE_URI"] that need to be defined.
+  No matter how you define your ENV variables, the point is that the app has calls to `ENV["GITHUB_TOKEN"]` and `ENV["BASE_URI"]` that need to be defined.
 
 ## Configuration
 
