@@ -54,7 +54,9 @@ Now set up an outgoing webhook request from GitHub:
 
 
 ## Storing the Token: .yml
-  If you'll be committing anything to GitHub, you'll want to store your `token` in a `.yml` file, as follows. If you're planning on using ENV variables, skip this section.
+  
+  <details> 
+  <summary> If you're planning on using ENV variables (the better option), skip this section. </summary>
     
   Under `/config`, create a file named `env.yml` and populate it with info specific to your repo:
 
@@ -70,10 +72,13 @@ Now set up an outgoing webhook request from GitHub:
   This will allow you to access the 40-digit string with ENV["GITHUB_TOKEN"]; putting this in an environment variable as opposed to explicitly declaring it, is a (semi)necessary step to "hide" the token from GitHub.
 
   Then add the following line to `.gitignore`:
+
   ```ruby
       /config/env.yml
   ```
   As you may know, you're not allowed to commit a change to GitHub if it includes a valid OAuth token; GitHub will automatically revoke that token if they see this happen, and you'll need to get a new one. This step prevents GitHub from pushing the file that includes the token, avoiding this issue.
+
+  </details>
 
 
 ## Storing the Token: Config Variables, the better way
