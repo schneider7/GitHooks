@@ -10,10 +10,11 @@ module GitHooks
       action_done      = request_payload['action']
       number           = request_payload['pull_request']['number']
       repo_modified    = request_payload['pull_request']['head']['repo']['name']
-      labels_present = Http.get_labels(repo_modified, number)
-      labels_present.map! { |h| h['name'] }
-
+      
       if GitHooks.active_repos.include?(repo_modified) && action_done == 'submitted'
+        labels_present = Http.get_labels(repo_modified, number)
+        labels_present.map! { |h| h['name'] }
+        
         submitted_status = request_payload['review']['state']
 
         if submitted_status == 'approved'
