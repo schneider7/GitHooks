@@ -10,7 +10,7 @@ module GitHooks
       action_done      = request_payload["action"]
       number           = request_payload["pull_request"]["number"]
       repo_modified    = request_payload["pull_request"]["head"]["repo"]["name"]
-      
+
       if GitHooks.active_repos.include?(repo_modified)
       
         if action_done == "submitted"
@@ -33,6 +33,11 @@ module GitHooks
         # If review request is 'declined'
         if action_done == "submitted" && submitted_status == "changes_requested" 
           Http.remove_label(repo_modified, number, "Dev Review")
+        end
+
+        # Test action
+        if action_done == "unlabeled" || action_done == "labeled"
+          Http.add_label(repo_modified, number, ["WOOHOO"])
         end
       
         head :ok 

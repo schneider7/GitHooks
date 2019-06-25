@@ -56,7 +56,7 @@ Now set up an outgoing webhook request from GitHub:
 ## Storing the Token: .yml
   
   <details> 
-  <summary> If you're planning on using ENV variables (the better option), skip this section. </summary>
+  <summary> If you're planning on using ENV variables (the better option), skip this section. If you want to read more, click here. </summary>
     
   Under `/config`, create a file named `env.yml` and populate it with info specific to your repo:
 
