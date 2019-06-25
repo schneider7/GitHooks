@@ -34,12 +34,7 @@ module GitHooks
         if action_done == "submitted" && submitted_status == "changes_requested" 
           Http.remove_label(repo_modified, number, "Dev Review")
         end
-
-        # Test action
-        if action_done == "unlabeled" || action_done == "labeled"
-          Http.add_label(repo_modified, number, ["WOOHOO"])
-        end
-      
+             
         head :ok 
 
       else Rails.logger.error
