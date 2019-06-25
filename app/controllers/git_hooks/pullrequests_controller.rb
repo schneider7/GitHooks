@@ -15,18 +15,22 @@ module GitHooks
         labels_present = Http.get_labels(repo_modified, number)
         labels_present.map! { |h| h['name'] }
         
+        dev_review = GitHooks.labels[:dev_review]
+        dev_approved = GitHooks.labels[:dev_approved]
+        qa_review = GtHooks.labels[:qa_review]
+        
         submitted_status = request_payload['review']['state']
 
         if submitted_status == 'approved'
         
-          Http.add_label(repo_modified, number, ['Dev Approved', 'QA Review'])
+          Http.add_label(repo_modified, number, [dev_approved, qa_review])
 
-          if labels_present.include?('Dev Review')
-            Http.remove_label(repo_modified, number, 'Dev Review')
+          if labels_present.include?(dev_review)
+            Http.remove_label(repo_modified, number, dev_review)
           end     
 
-        elsif submitted_status == 'changes_requested' && labels_present.include?('Dev Review')
-          Http.remove_label(repo_modified, number, 'Dev Review')
+        elsif submitted_status == 'changes_requested' && labels_present.include?(dev_review)
+          Http.remove_label(repo_modified, number, dev_review)
         end
              
         head :ok 
