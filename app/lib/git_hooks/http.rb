@@ -25,6 +25,8 @@ module GitHooks
 
     def self.add_comment(repo_name, issue_number, body)
       options = githooks_defaults("/#{repo_name}/issues/#{issue_number}/comments")
+      ### You dont need to use '' around body just do this:
+      ### params: { body: body }
       http_request('Post', options.merge(params: { 'body': body }))
     end
 
@@ -35,7 +37,8 @@ module GitHooks
       request["Authorization"] = "token #{options[:defaults][:token]}"
 
       request.body = JSON.dump(options[:params]) unless options[:params].nil?
-
+      
+      ### I dont think you need the {} only use_ssl: uri.scheme == "https"
       response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == "https" }) do |http|
         http.request(request)
       end
