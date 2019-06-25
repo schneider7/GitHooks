@@ -25,7 +25,7 @@ module GitHooks
 
     def self.add_comment(repo_name, issue_number, body)
       options = githooks_defaults("/#{repo_name}/issues/#{issue_number}/comments")
-      http_request('Post', options.merge(params: { 'body': body }))
+      http_request('Post', options.merge(params: { body: body }))
     end
 
     def self.http_request(method, options={})
@@ -36,10 +36,10 @@ module GitHooks
 
       request.body = JSON.dump(options[:params]) unless options[:params].nil?
 
-      response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == "https" }) do |http|
+      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
         http.request(request)
       end
-      
+
       JSON.parse response.body
     end
 

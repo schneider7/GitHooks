@@ -19,10 +19,6 @@ And then execute:
 ```bash
 $ bundle update
 ```
-
-(You may also need to run `rm Gemfile.lock` first) 
-
-
 Add the following `mount` line to `routes.rb`, in your Rails app:
 
 ```ruby
@@ -52,36 +48,7 @@ Now set up an outgoing webhook request from GitHub:
   
   ![Screencap of options](/pat-scope.png)
 
-
-## Storing the Token: .yml
-  
-  <details> 
-  <summary> If you're planning on using ENV variables (the better option), skip this section. If you want to read more, click here. </summary>
-    
-  Under `/config`, create a file named `env.yml` and populate it with info specific to your repo:
-
-  ```ruby 
-    production:
-      GITHUB_TOKEN: "your_40-digit_token"
-      BASE_URI: "https://api.github.com/repos/FILL_IN_USER_NAME"
-
-    development:
-      GITHUB_TOKEN: "your_40-digit_token"
-      BASE_URI: "https://api.github.com/repos/FILL_IN_USER_NAME"
-  ```
-  This will allow you to access the 40-digit string with ENV["GITHUB_TOKEN"]; putting this in an environment variable as opposed to explicitly declaring it, is a (semi)necessary step to "hide" the token from GitHub.
-
-  Then add the following line to `.gitignore`:
-
-  ```ruby
-      /config/env.yml
-  ```
-  As you may know, you're not allowed to commit a change to GitHub if it includes a valid OAuth token; GitHub will automatically revoke that token if they see this happen, and you'll need to get a new one. This step prevents GitHub from pushing the file that includes the token, avoiding this issue.
-
-  </details>
-
-
-## Storing the Token: Config Variables, the better way
+## Storing the Token: Config Variable
   If you're deploying to Heroku, you can simply create a config variable called `GITHUB_TOKEN` in the settings of your app, and a config variable called `BASE_URI` with the same information from above.
 
   More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.

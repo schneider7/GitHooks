@@ -7,40 +7,35 @@ module GitHooks
       request_payload = JSON.parse(request.body.read)
       
       # Get values from the parsed JSON that we'll need as arguments later on
-      action_done      = request_payload["action"]
-      number           = request_payload["pull_request"]["number"]
-      repo_modified    = request_payload["pull_request"]["head"]["repo"]["name"]
+      action_done      = request_payload['action']
+      number           = request_payload['pull_request']['number']
+      repo_modified    = request_payload['pull_request']['head']['repo']['name']
+      labels_present = Http.get_labels(repo_modified, number)
+      labels_present.map! { |h| h['name'] }
 
-      if GitHooks.active_repos.include?(repo_modified)
-      
-        if action_done == "submitted"
-          submitted_status = request_payload["review"]["state"]
-        end
+      if GitHooks.active_repos.include?(repo_modified) && action_done == 'submitted'
+        submitted_status = request_payload['review']['state']
 
-        # If review request is approved on an active repo
-        if action_done == "submitted" && submitted_status == "approved"
+        if submitted_status == 'approved'
         
-          labels_present = Http.get_labels(repo_modified, number)
-          labels_present.map! { |h| h['name'] }
+          Http.add_label(repo_modified, number, ['Dev Approved', 'QA Review'])
 
-          if labels_present.include?("Dev Review")
-            Http.remove_label(repo_modified, number, "Dev Review")
-          end 
-          
-          Http.add_label(repo_modified, number, ["Dev Approved", "QA Review"])
-        end
-      
-        # If review request is 'declined'
-        if action_done == "submitted" && submitted_status == "changes_requested" 
-          Http.remove_label(repo_modified, number, "Dev Review")
+          if labels_present.include?('Dev Review')
+            Http.remove_label(repo_modified, number, 'Dev Review')
+          end     
+
+        elsif submitted_status == 'changes_requested' && labels_present.include?('Dev Review')
+          Http.remove_label(repo_modified, number, 'Dev Review')
         end
              
         head :ok 
 
-      else Rails.logger.error
-         "GITHOOKS ERROR: That repo is not in your list of 
-         active repos. Add it in the config file of your app. 
-         See the README on GitHub for more info."
+      else
+        Rails.logger.debug 
+          "GITHOOKS MESSAGE: #{repo_modified} is not in your list of 
+          active repos. Add it in the config file of your app."
+
+         head :no_content
 
       end
     end
