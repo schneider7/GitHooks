@@ -65,6 +65,11 @@ In addition to using environment/config variables for the token and base uri, yo
 GitHooks.active_repos = ["Repo_1_Name", "Repo_2_Name"]
 # for example, ["SycamoreSchool", "SycamoreSchoolRails", ... ,"SycamoreCampus"]
 # Obviously, it is acceptable if the array contains only one element.
+GitHooks.labels = {
+  dev_review: "Development Review",
+  dev_approved: "Development Approved",
+  qa_review: " Quality Assurance Review"
+}
 ```
 
 If you have two repos with webhooks pointed at the same location (`.../git_hooks`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
