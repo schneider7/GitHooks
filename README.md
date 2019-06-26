@@ -76,7 +76,7 @@ GitHooks.rejected = {
   add: ["Change Rejected"],
   remove: []
 }
-# Allows you to customize action that occurs when PR review request is senet as "changes requested".
+# Allows you to customize action that occurs when PR review request is sent as "changes requested".
 
 # NOTE: These arrays CAN be empty; GitHooks properly handles empty arrays. 
 ```
