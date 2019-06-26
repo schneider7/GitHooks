@@ -17,23 +17,26 @@ module GitHooks
         submitted_status = request_payload['review']['state']
 
         if submitted_status == 'approved'
+          
           unless GitHooks.approved[:add].blank?
             Http.add_label(repo_modified, number, GitHooks.approved[:add])
           end
   
-          GitHooks.approved[:add].each do |r| 
-            if labels_present.include?(r)
-            Http.remove_label(repo_modified, number, r)
+          GitHooks.approved[:remove].each do |label| 
+            if labels_present.include?(label)
+              Http.remove_label(repo_modified, number, label)
             end
           end
-
+          
         elsif submitted_status == 'changes_requested'
+          
+          unless GitHooks.rejected[:add].blank?
+            Http.add_label(repo_modified, number, GitHooks.rejected[:add])
+          end
 
-          Http.add_label(repo_modified, number, GitHooks.rejected[:add]) unless GitHooks.rejected[:add].blank?
-
-          GitHooks.rejected[:remove].each do |r|
-            if labels_present.include?(r)
-              Http.remove_label(repo_modified, number, r)
+          GitHooks.rejected[:remove].each do |label|
+            if labels_present.include?(label)
+              Http.remove_label(repo_modified, number, label)
             end
           end
 
