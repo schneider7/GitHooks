@@ -21,7 +21,7 @@ module GitHooks
             Http.add_label(repo_modified, number, GitHooks.approved[:add])
           end
   
-          GitHooks.approved[:remove].each do |label| 
+          GitHooks.approved[:remove]&.each do |label| 
             if labels_present.include?(label)
               Http.remove_label(repo_modified, number, label)
             end
@@ -37,7 +37,7 @@ module GitHooks
             Http.add_label(repo_modified, number, GitHooks.rejected[:add])
           end
 
-          GitHooks.rejected[:remove].each do |label|
+          GitHooks.rejected[:remove]&.each do |label|
             if labels_present.include?(label)
               Http.remove_label(repo_modified, number, label)
             end
