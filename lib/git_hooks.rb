@@ -7,6 +7,6 @@ module GitHooks
   mattr_accessor :add_when_rejected
   mattr_accessor :rmv_when_rejected
 
-  mattr_accessor :add
-  mattr_accessor :remove
+  mattr_accessor :approved
+  mattr_accessor :rejected
 end
