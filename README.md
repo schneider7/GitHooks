@@ -32,7 +32,7 @@ Now set up an outgoing webhook request from GitHub:
 
   - Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
-  - Following my example, for the URL, point it at https://yourapp.domain/git_hooks
+  - For the URL, point it at https://yourapp.domain/git_hooks
   
   - For trigger options, select only "pull requests" and "pull request reviews". 
     
