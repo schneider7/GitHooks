@@ -78,7 +78,8 @@ GitHooks.rejected = {
 
 # NOTE: The arrays within the hashes CAN be empty; GitHooks properly handles empty arrays. 
 # If you don't want the engine to leave comments on your PRs (it might get annoying), 
-# Simply leave the comment: element as "" and the engine will skip adding comments.
+# Simply remove the comment: element from the hash and the engine will skip adding comments.
+# Or, you can leave it as comment: "" (both options will simply skip over adding a comment).
 ```
 
 If you have two repos with webhooks pointed at the same location (`.../git_hooks`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on PR #3 of Repo_1 from editing the labels on PR #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
