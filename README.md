@@ -62,9 +62,20 @@ Now set up an outgoing webhook request from GitHub:
 In addition to using environment/config variables for the token and base uri, you'll also need to do some basic configuration of the app to suit your preferences. This part is really simple. To begin, you'll need to add a file called `git_hooks.rb` into your Rails App, in `/config/initializers`. Copy the following line of code, and populate it with the relevant information for your projects:
 
 ```ruby
-GitHooks.active_repos = ["Repo_1_Name", "Repo_2_Name"]
-# for example, ["SycamoreSchool", "SycamoreSchoolRails", ... ,"SycamoreCampus"]
+GitHooks.active_repos = ["Repo 1", "Repo 2"]
+# for example, ["SycamoreSchool", "SycamoreSchoolRails", "SycamoreCampus"]
 # Obviously, it is acceptable if the array contains only one element.
+
+GitHooks.approved = {
+  add: ["Example_1", "Label 2!!!"],
+  remove: ["Label to be removed"]
+}
+
+GitHooks.rejected = {
+  add: ["Change Rejected"],
+  remove: []
+}
+# These arrays can be empty; GitHooks properly handles empty arrays. 
 ```
 
 If you have two repos with webhooks pointed at the same location (`.../git_hooks`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
