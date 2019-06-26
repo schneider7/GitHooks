@@ -1,7 +1,7 @@
 # GitHooks
 A Ruby on Rails engine that provides an endpoint for receiving GitHub webhooks and automatically updating labels as necessary.
 
-## Usage
+## Purpose
 This Rails engine allows the user to configure what should happen when a GitHub PR "review request" is submitted. The user can tell GitHooks which labels should be added or removed, and can define comments that should automatically happen when this event occurs. Distinct sets of actions can be defined when a reviewer puts "changes requested" vs. "approved".
 
 Motivation was that it can be easy to forget to remove these tags, and this is a simple fix to ensure that the reviewer doesn't have to remember to do that. You can also look at [this link](https://developer.github.com/v3/activity/events/types) for more details on what you can do with the GitHub API, and how you could adapt this engine if you wanted to.
@@ -32,11 +32,11 @@ Now set up an outgoing webhook request from GitHub:
 
   - Create a new webhook, select the option for the delivery to be in JSON form: `application/json`
   
-  - Following my example, for the URL, point it at https://yourapp.domain/git_hooks
+  - For the URL, point it at https://yourapp.domain/git_hooks
   
   - For trigger options, select only "pull requests" and "pull request reviews". 
     
-  If you're using this for an organization (as you almost certainly are), you will probably want to create a ["machine account"](https://developer.github.com/v3/guides/managing-deploy-keys/) (i.e. a bot) with a name like "Company_Name Bot" that will have read/write/admin powers and then use it (and its access token) to interact with the API. This has the dual benefit of keeping the action going indefinitely (linking it to a specific person could cause issues if the person ever leaves the company) and also of clearly indicating in the GitHub user interface that the action was performed automatically by a bot.
+  If you're using this for an organization, you will probably want to create a ["machine account"](https://developer.github.com/v3/guides/managing-deploy-keys/) (i.e. a bot) with a name like "Company_Name Bot" that will have read/write/admin powers and then use it (and its access token) to interact with the API. This has the dual benefit of keeping the action going indefinitely (linking it to a specific person could cause issues if the person ever leaves the company) and also of clearly indicating in the GitHub user interface that the action was performed automatically by a bot.
 
 ## Authorization
   For authorization, you need a 40-digit OAuth access token specific to your GitHub account, rather than your username/password for authentication. You will want to [limit the scope of the access token when you request it from GitHub](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
