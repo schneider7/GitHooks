@@ -1,7 +1,7 @@
 # GitHooks
 A Ruby on Rails engine that provides an endpoint for receiving GitHub webhooks and automatically updating labels as necessary.
 
-## Usage
+## Purpose
 This Rails engine allows the user to configure what should happen when a GitHub PR "review request" is submitted. The user can tell GitHooks which labels should be added or removed, and can define comments that should automatically happen when this event occurs. Distinct sets of actions can be defined when a reviewer puts "changes requested" vs. "approved".
 
 Motivation was that it can be easy to forget to remove these tags, and this is a simple fix to ensure that the reviewer doesn't have to remember to do that. You can also look at [this link](https://developer.github.com/v3/activity/events/types) for more details on what you can do with the GitHub API, and how you could adapt this engine if you wanted to.
