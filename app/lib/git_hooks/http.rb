@@ -23,6 +23,11 @@ module GitHooks
       http_request('Get', options)
     end
 
+    def self.add_comment(repo_name, issue_number, body)
+      options = githooks_defaults("/#{repo_name}/issues/#{issue_number}/comments")
+      http_request('Post', options.merge(params: { body: body }))
+    end
+
     def self.http_request(method, options={})
       encoded_uri = URI.encode(options[:defaults][:uri])
       uri = URI.parse(encoded_uri)

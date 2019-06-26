@@ -6,7 +6,6 @@ module GitHooks
       request.body.rewind
       request_payload = JSON.parse(request.body.read)
       
-      # Get values from the parsed JSON that we'll need as arguments later on
       action_done      = request_payload['action']
       number           = request_payload['pull_request']['number']
       repo_modified    = request_payload['pull_request']['head']['repo']['name']
@@ -27,6 +26,10 @@ module GitHooks
               Http.remove_label(repo_modified, number, label)
             end
           end
+
+          unless GitHooks.approved[:comment].blank?
+            Http.add_comment(repo_modified, number, GitHooks.approved[:comment])
+          end
           
         elsif submitted_status == 'changes_requested'
           
@@ -38,6 +41,10 @@ module GitHooks
             if labels_present.include?(label)
               Http.remove_label(repo_modified, number, label)
             end
+          end
+
+          unless GitHooks.rejected[:comment].blank?
+            Http.add_comment(repo_modified, number, GitHooks.rejected[:comment])
           end
 
         end
