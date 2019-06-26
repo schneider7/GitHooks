@@ -68,17 +68,21 @@ GitHooks.active_repos = ["Repo 1", "Repo 2"]
 
 # Allows you to customize action that occurs when PR review request is approved.
 GitHooks.approved = {
-  add: ["Example_1", "Label 2!!!"],
-  remove: ["Label to be removed"]
+  add: ["Funky Label", "Label 2!!!"],
+  remove: ["Label to be removed"],
+  comment: "" 
 }
 
 # Allows you to customize action that occurs when PR review request is sent as "changes requested".
 GitHooks.rejected = {
-  add: ["Change Rejected"],
+  add: ["Changes Requested"],
   remove: []
+  comment: "Changes are requested by the dev reviewer on this PR."
 }
 
-# NOTE: These arrays within the hashes CAN be empty; GitHooks properly handles empty arrays. 
+# NOTE: The arrays within the hashes CAN be empty; GitHooks properly handles empty arrays. 
+# If you don't want the engine to leave comments on your PRs (it might get annoying), 
+# Simply leave the comment: element as "" and the engine will skip adding comments.
 ```
 
 If you have two repos with webhooks pointed at the same location (`.../git_hooks`) , and you make a change that triggers a hook, then GitHooks will know which repo the change came from (by parsing the webhook sent) and it will only modify that specific repo. This prevents, for example, a change on issue #3 of Repo_1 from editing the labels on issue #3 of Repo_2, or similar issues. **It also prevents any changes from occurring (i.e. being initiated by GitHooks) on repos that the user of this engine chooses not to consider "active"** (as defined in the above .rb file).
