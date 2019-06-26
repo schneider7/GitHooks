@@ -46,16 +46,15 @@ Now set up an outgoing webhook request from GitHub:
   ![Screencap of options](/pat-scope.png)
 
 ## Storing the Token: Config Variable
-  If you're deploying to Heroku, you can simply create a config variable called `GITHUB_TOKEN` in the settings of your app, and a config variable called `BASE_URI`, as shown below.
+  If you're deploying to Heroku, you can simply create a config variable called `GITHUB_TOKEN` in the settings of your app, as shown below.
 
-  More generally, you need to include the environment variables at the server level, however you deploy your app; in my case it's always Heroku.
+  More generally, you need to include the environment variable at the server level, however you deploy your app; in my case it's always Heroku.
 
-  ![Defining BASE_URI](/BASE_URI.PNG)
   ![Defining GITHUB_TOKEN](/GITHUB_TOKEN.PNG)
 
 ## Configuration
 
-In addition to using environment/config variables for the token and base uri, you'll also need to do some basic configuration of the app to suit your preferences. This part is pretty simple. To begin, you'll need to add a file called `git_hooks.rb` into your Rails App, in `/config/initializers`. Copy the following line of code, and populate it with the relevant information for your projects:
+In addition to using environment/config variable for the token, you'll also need to do some basic configuration of the app to suit your preferences. This part is pretty simple. To begin, you'll need to add a file called `git_hooks.rb` into your Rails App, in `/config/initializers`. Copy the following line of code, and populate it with the relevant information for your projects:
 
 ```ruby
 GitHooks.active_repos = ["Repo 1", "Repo 2"]
