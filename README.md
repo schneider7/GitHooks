@@ -15,7 +15,7 @@ gem 'git_hooks', git: 'https://github.com/schneider7/GitHooks'
 
 And then execute:
 ```bash
-$ bundle update
+$ bundle install
 ```
 Add the following `mount` line to `routes.rb`, in your Rails app:
 
