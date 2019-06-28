@@ -75,8 +75,9 @@ GitHooks.rejected = {
   comment: "Changes are requested by the dev reviewer on this PR."
 }
 
-GitHooks.new = {
-  add: ["Dev Review"]
+GitHooks.review = {
+  add: ["Dev Review"],
+  remove: []
 }
 
 # NOTE: The arrays within the hashes CAN be empty; GitHooks properly handles empty arrays. 
