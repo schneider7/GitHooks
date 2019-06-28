@@ -11,6 +11,13 @@ module GitHooks
       repo_modified    = request_payload['pull_request']['head']['repo']['name']
       repo_full_name   = request_payload['pull_request']['head']['repo']['full_name'] # Includes org name in string
       
+      unless GitHooks.active_repos.include?(repo_modified)
+        Rails.logger.debug 
+          "GITHOOKS MESSAGE: #{repo_modified} is not in your list of 
+          active repos. Add it in the config file of your app."
+        head :no_content
+      end
+
       if GitHooks.active_repos.include?(repo_modified) && action_done == 'submitted'
         labels_present = Http.get_labels(repo_full_name, number)
         labels_present.map! { |h| h['name'] }
@@ -52,13 +59,9 @@ module GitHooks
              
         head :ok 
 
-      else
-        Rails.logger.debug 
-          "GITHOOKS MESSAGE: #{repo_modified} is not in your list of 
-          active repos. Add it in the config file of your app."
-
-         head :no_content
-
+      elsif GitHooks.active_repos.include?(repo_modified) && action_done == 'review_requested'
+        Http.add_label(repo_full_name, number, GitHooks.new[:add])
+      
       end
     end
   end

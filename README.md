@@ -75,6 +75,10 @@ GitHooks.rejected = {
   comment: "Changes are requested by the dev reviewer on this PR."
 }
 
+GitHooks.new = {
+  add: ["Dev Review"]
+}
+
 # NOTE: The arrays within the hashes CAN be empty; GitHooks properly handles empty arrays. 
 # If you don't want the engine to leave comments on your PRs (it might get annoying), 
 # Simply remove the comment: element from the hash and the engine will skip adding comments.
