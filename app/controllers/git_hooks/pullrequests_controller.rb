@@ -60,7 +60,12 @@ module GitHooks
         head :ok 
 
       elsif GitHooks.active_repos.include?(repo_modified) && action_done == 'review_requested'
-        Http.add_label(repo_full_name, number, GitHooks.new[:add])
+        Http.add_label(repo_full_name, number, GitHooks.review[:add])
+        GitHooks.review[:remove]&.each do |label| 
+          if labels_present.include?(label)
+            Http.remove_label(repo_full_name, number, label)
+          end
+        end
       
       end
     end
